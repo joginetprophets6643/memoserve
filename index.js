@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const postRoutes = require('./routes/postRouter');
+const userRoutes = require('./routes/userRouter')
 const multer  = require('multer')
 var upload = multer();
 const app = express();
@@ -16,6 +17,7 @@ app.use(express.static('public'));
 app.use(cors());
 
 app.use('/posts', postRoutes);
+app.use('/user',userRoutes)
 
 const CONNECTION_URL = 'mongodb+srv://jugendra6690:Jogi@6643@cluster0.aqa2x.mongodb.net/?retryWrites=true&w=majority';
 const connectionParams={
