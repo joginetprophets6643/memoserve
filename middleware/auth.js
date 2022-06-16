@@ -1,9 +1,9 @@
-import jwt from "jsonwebtoken";
-
+var jwt = require('jsonwebtoken');;
 const secret = 'jogi';
 
-const auth = async (req, res, next) => {
+ const auth = async (req, res, next) => {
   try {
+    
     const token = req.headers.authorization.split(" ")[1];
     const isCustomAuth = token.length < 500;
 
@@ -25,4 +25,4 @@ const auth = async (req, res, next) => {
   }
 };
 
-export default auth;
+module.exports  = auth
