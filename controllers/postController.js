@@ -98,7 +98,18 @@ exports.likePost = async (req, res) => {
       post.likes = post.likes.filter((id) => id !== String(req.userId));
     }
     const updatedPost = await PostMessage.findByIdAndUpdate(id, post, { new: true });
-    console.log(updatedPost);
-    return false;
     res.status(200).json(updatedPost);
+}
+exports.getPostsBySearch = async (req,res) =>{
+    
+    const { searchQuery, tags } = req.query;
+    try {
+        const title = new RegExp(searchQuery, "i");
+        
+        const posts = await PostMessage.find({ $or: [ { title }, { tags: { $in: tags.split(',') } } ]});
+
+        res.json({ data: posts });
+    } catch (error) {    
+        res.status(404).json({ message: error.message });
+    }
 }

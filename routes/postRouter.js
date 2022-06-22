@@ -9,4 +9,5 @@ router.get('/',postController.getPosts);
 router.get('/:id',postController.getPost);
 router.delete('/:id',postController.deletePost);
 router.patch('/:id/likePost', auth, postController.likePost);
+router.get('/search',postController.getPostsBySearch);
 module.exports = router;
