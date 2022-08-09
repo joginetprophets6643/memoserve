@@ -3,15 +3,20 @@ const  mongoose = require('mongoose');
 const  PostMessage = require('../models/postMessage');
 const router = express.Router();
 
-exports.createPost = async (req, res) => {
-    // const { title, message, selectedFile, creator, tags } = req.body;
-    const post = req.body;
-    // const newPostMessage = new PostMessage({ title, message, selectedFile, creator, tags })
-    const newPostMessage = new PostMessage({...post,creator: req.userId, createdAt: new Date().toISOString()})
 
+exports.createPost = async (req, res) => {
+    const post = req.body;
+    const title = req.body.title;
+    const message = req.body.message;
+    const selectedFile = req.body.selectedFile;
+    const creator = req.body.creator;
+    const tags = req.body.tags;
+    // console.log(title,message,selectedFile,creator,tags);
+
+    const newPostMessage = new PostMessage({ title, message, selectedFile, creator, tags,createdAt: new Date().toISOString() })
+    // const newPostMessage = new PostMessage({...post,creator: req.userId, createdAt: new Date().toISOString()})
     try {
         await newPostMessage.save();
-
         res.status(201).json(newPostMessage );
     } catch (error) {
         res.status(409).json({ message: error.message });
