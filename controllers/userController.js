@@ -8,6 +8,8 @@ const secret = 'jogi';
 
 /** SIGNUP API */
 exports.signup = async (req,res)=>{
+    
+    const profilePic=req.body.profilePic;
     const {firstName,lastName,email,password} = req.body;
     try {
         const oldUser = await userModel.findOne({email});
@@ -16,7 +18,7 @@ exports.signup = async (req,res)=>{
 
         const hashedPassword = await bcrypt.hash(password,12);
 
-        const result = await userModel.create({email:email,password:hashedPassword,name:`${firstName} ${lastName}`});
+        const result = await userModel.create({email:email,password:hashedPassword,name:`${firstName} ${lastName}`,profilePic:profilePic});
 
         const token = jwt.sign({email:result.email,id:result._id},secret,{expiresIn:"1h"});
 

@@ -23,7 +23,7 @@ app.use('/upload', express.static('./upload'));
 app.use(cors());
 const upload = multer({ dest: 'upload' })
 app.use('/posts',upload.single('selectedFile'), postRoutes);
-app.use('/user',userRoutes)
+app.use('/user',upload.single('profilePic'),userRoutes)
 
 
 
